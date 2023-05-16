@@ -13,6 +13,6 @@ public interface PolicyService {
 
 	public Policy addPolicy(Policy policy);
 
-	//public Policy searchPolicyByname(String policyName);
+	public Policy searchPolicyByname(String policyName);
 
 }

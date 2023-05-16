@@ -30,4 +30,10 @@ public class ClaimsServiceImpl implements ClaimService {
 	public Claim cerateClaims(Claim claim) {
 		return claimRepo.save(claim);
 	}
+
+	@Override
+	public Claim searchCliams(String claims) {
+		// TODO Auto-generated method stub
+		return claimRepo.findByclaimNumber(claims);
+	}
 }

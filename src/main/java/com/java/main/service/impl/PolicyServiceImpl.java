@@ -31,9 +31,10 @@ public class PolicyServiceImpl implements PolicyService {
 		return policyRepo.save(policy);
 	}
 
-//	@Override
-//	public Policy searchPolicyByname(String policyName) {
-//		// TODO Auto-generated method stub
-//		return policyRepo.findByPolicyName(policyName);
-//	}
+	@Override
+	public Policy searchPolicyByname(String policyName) {
+		return policyRepo.findBypolicyNumber(policyName);
+	}
+
+
 }

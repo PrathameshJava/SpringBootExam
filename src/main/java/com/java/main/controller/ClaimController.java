@@ -18,40 +18,50 @@ import com.java.main.service.ClaimService;
 @RestController
 public class ClaimController {
 
-    @Autowired
-    private ClaimService claimService;
+	@Autowired
+	private ClaimService claimService;
 
+	@GetMapping(value = "/api/claims")
+	public ResponseEntity<List<Claim>> getAllUsers() {
+		List<Claim> list = claimService.getAllClaims();
+		try {
+			if (list.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
-    @GetMapping(value = "/api/claims")
-    public ResponseEntity<List<Claim>> getAllUsers() {
-        List<Claim> list = claimService.getAllClaims();
-        try {
-            if (list.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(list, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	@PostMapping(value = "/api/claims")
+	public ResponseEntity<Claim> savePolicy(@RequestBody Claim claim) {
+		try {
+			Claim claim1 = claimService.cerateClaims(claim);
+			return new ResponseEntity<>(claim1, HttpStatus.CREATED);
+		} catch (Exception exception) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
-    @PostMapping(value = "/api/claims")
-    public ResponseEntity<Claim> savePolicy(@RequestBody Claim claim) {
-        try {
-            Claim claim1 = claimService.cerateClaims(claim);
-            return new ResponseEntity<>(claim1, HttpStatus.CREATED);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	@GetMapping(value = "/api/claims/{id}")
+	public ResponseEntity<Claim> getPolicyById(@PathVariable(value = "id") Integer id)
+			throws ResourceNotFoundException {
+		Claim claim = claimService.getAllclaimsByid(id);
+		if (claim == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(claim, HttpStatus.OK);
+	}
 
-    @GetMapping(value = "/api/claims/{id}")
-    public ResponseEntity<Claim> getPolicyById(@PathVariable(value = "id") Integer id) throws ResourceNotFoundException {
-        Claim claim = claimService.getAllclaimsByid(id);
-        if (claim == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(claim, HttpStatus.OK);
-    }
+	@GetMapping(value = "/api1/{claimNumber}")
+	public ResponseEntity<Claim> SearchClaims(@PathVariable("claimNumber") String claimNumber) {
+		Claim claim = claimService.searchCliams(claimNumber);
 
+		if (claim == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(claim, HttpStatus.OK);
+
+	}
 }

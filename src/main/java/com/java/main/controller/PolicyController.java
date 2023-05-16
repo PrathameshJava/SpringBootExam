@@ -54,13 +54,13 @@ public class PolicyController {
 		return new ResponseEntity<>(policy, HttpStatus.OK);
 	}
 
-//	@GetMapping(value = "/api/{policyName}")
-//	public ResponseEntity<Policy> getpolicyByname(@PathVariable(value = "policyName") String policyname)
-//			throws ResourceNotFoundException {
-//		Policy policy = policyService.searchPolicyByname(policyname);
-//		if (policy == null) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//		return new ResponseEntity<>(policy, HttpStatus.OK);
-//	}
+	@GetMapping(value = "/api/{policyName}")
+	public ResponseEntity<Policy> getpolicyByname(@PathVariable(value = "policyName") String policyname)
+			throws ResourceNotFoundException {
+		Policy policy = policyService.searchPolicyByname(policyname);
+		if (policy == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(policy, HttpStatus.OK);
+	}
 }

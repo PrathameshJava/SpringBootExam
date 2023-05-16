@@ -8,5 +8,5 @@ import com.java.main.model.Policy;
 @Repository
 public interface PolicyRepo extends JpaRepository<Policy, Integer> {
 
-	//public Policy findByPolicyName(String policyName);
+	public Policy findBypolicyNumber(String policynumber);
 }

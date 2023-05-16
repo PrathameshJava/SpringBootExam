@@ -11,4 +11,6 @@ public interface ClaimService {
 	public Claim getAllclaimsByid(Integer id) throws ResourceNotFoundException;
 
 	public Claim cerateClaims(Claim claim);
+	
+	public Claim searchCliams(String claims);
 }

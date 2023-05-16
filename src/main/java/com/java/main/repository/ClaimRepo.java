@@ -8,6 +8,6 @@ import com.java.main.model.Claim;
 @Repository
 public interface ClaimRepo extends JpaRepository<Claim,Integer> {
 	
-//	public Claim findByClaimantname(String claim);
+	public Claim findByclaimNumber(String claimNumber);
 
 }
